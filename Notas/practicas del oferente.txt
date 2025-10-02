@@ -1,0 +1,66 @@
+﻿VIP CAR-WASH (Alfredo).
+
+
+Pagina que muestre el tipo de servicios con la descripcion y el precio, 
+al seleccionar el tipo de servicio que se desea contratar tiene que aparecer un formulario, 
+para que el cliente ingrese sus datos, y datos del vehiculo, en base al tipo de vehiculo se 
+cotiza el precio del servicio.
+una vez tomado el turno se tiene que guardar en una base de datos
+a la cual el oferente tiene acceso a travez de la pagina mediante
+un panel de administrador. 
+24hs antes del turno mediante la automatizacion se le tiene que mandar
+un wsp al cliente para que confirme el turno o lo cancele.
+al mismo tiempo el oferente tiene que recibir un wsp con el recordatorio
+del turno que dio (el que este confirmado). 
+
+
+*****************************************************************************
+
+
+DATOS IMPORTANTES:
+
+
+*el oferente usa wsp business.
+
+
+*la automatizacion tiene que ser por wsp.
+
+
+*datos que toma del cliente (NOMBRE, APELLIDO, TELEFONO, VEHICULO: NOMBRE Y COLOR, PATENTE, EMAIL).
+
+
+*el recordatorio tiene que ser 24hs antes.
+
+
+*a la hora de pedir un turno y seleccionar el dia el cliente tiene que ver si esta disponible,
+porque solo toma (3 TURNOS) por dia.
+
+
+*los servicios dependen del tipo de vehiculo (AUTO, CAMIONETA), tienen una descripcion y precio.
+
+
+*algunos servicios dependen de la cantidad de asientos que tenga el vehiculo.
+
+
+*panel de administrador con formulario para cargar turnos (sugerencia, comboBox para seleccionar
+el tipo de servicios).
+
+
+*el administrador tiene que poder ver un listado de los turnos vigentes,
+tambien deberia poder filtrar todos los servicios del mes.
+
+
+*se puede pensar en una lista de espera y en el caso de liberarse alguna fecha que entre ese turno,
+tambien se deberia notificar con la automatizacion.
+
+
+****************************************************************************
+
+
+HERRAMIENTAS:
+
+
+*diagrama para BD.
+*HTML, CSS, MySQL Workbrench.
+*Python.
+*.....
