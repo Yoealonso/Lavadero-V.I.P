@@ -3,92 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <title>Reservar Turno - VIP Car Wash</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' href='style.css'>
-    <style>
-        .alert { padding: 15px; margin: 10px 0; border-radius: 5px; }
-        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .reserva-info { background: #e7f3ff; padding: 15px; margin: 15px 0; border-radius: 5px; }
-    </style>
 </head>
 <body>
-    <header><h2>VIP CAR WASH</h2></header>
-    
-    <div class="container">
-        <?php if (isset($successMessage)): ?>
-            <div class="alert success">
-                <?php echo $successMessage; ?>
-                <?php if (isset($reservaData)): ?>
-                    <div class="reserva-info">
-                        <h4>📋 Resumen de tu reserva:</h4>
-                        <p><strong>N° de reserva:</strong> #<?php echo $reservaData['id']; ?></p>
-                        <p><strong>Cliente:</strong> <?php echo $reservaData['cliente']; ?></p>
-                        <p><strong>Vehículo:</strong> <?php echo $reservaData['vehiculo']; ?> (<?php echo $reservaData['patente']; ?>)</p>
-                        <p><strong>Fecha y hora:</strong> <?php echo $reservaData['fecha']; ?> a las <?php echo $reservaData['hora']; ?></p>
-                        <p><strong>Servicio:</strong> <?php echo ucfirst($reservaData['servicio']); ?></p>
-                        <p><strong>Precio estimado:</strong> $<?php echo number_format($reservaData['precio'], 0, ',', '.'); ?></p>
-                    </div>
+    <header>
+        <div class="logo"><h2>VIP CAR WASH</h2></div>
+    </header>
+
+    <nav>
+        <a href="index.html" style="margin-right: 40px;" class="na"> Inicio</a>
+        <a href="#servicios" style="margin-right: 40px;" class="na"> Servicios</a>
+        <a href="panel.php" class="admin-btn"> Admin</a>
+    </nav>
+
+    <div class="reserva-container fade-in-up">
+        <?php if (!empty($successMessage)): ?>
+            <div class="alert-modern alert-success">
+                <h2><?php echo htmlspecialchars($successMessage, ENT_QUOTES, 'UTF-8'); ?></h2>
+                <?php if (!empty($reservaData)): ?>
+                    <p><strong>Reserva #</strong><?php echo intval($reservaData['id']); ?></p>
+                    <p><strong>Cliente:</strong> <?php echo htmlspecialchars($reservaData['cliente'], ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p><strong>Vehículo:</strong> <?php echo htmlspecialchars($reservaData['vehiculo'], ENT_QUOTES, 'UTF-8'); ?> (<?php echo htmlspecialchars($reservaData['patente'], ENT_QUOTES, 'UTF-8'); ?>)</p>
+                    <p><strong>Fecha y hora:</strong> <?php echo htmlspecialchars($reservaData['fecha_formateada'], ENT_QUOTES, 'UTF-8'); ?> a las <?php echo htmlspecialchars($reservaData['hora'], ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p><strong>Servicio:</strong> <?php echo htmlspecialchars($reservaData['servicio_nombre'], ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p><strong>Precio estimado:</strong> $<?php echo number_format(floatval($reservaData['precio_final'] ?? 0), 0, ',', '.'); ?></p>
+                    <p><em>Revisa tu WhatsApp para confirmar el turno</em></p>
                 <?php endif; ?>
+                <a href="index.html" class="reserva-btn">Volver al Inicio</a>
             </div>
-        <?php elseif (isset($errorMessage)): ?>
-            <div class="alert error"><?php echo $errorMessage; ?></div>
-        <?php endif; ?>
 
-        <?php if (!isset($successMessage)): ?>
-        <form method="POST" action="reserva.php">
-            <input type="hidden" name="servicio" value="<?php echo isset($_GET['servicio']) ? htmlspecialchars($_GET['servicio']) : 'basico'; ?>">
-            
-            <h3>Reservar Turno - Servicio <?php echo ucfirst(isset($_GET['servicio']) ? htmlspecialchars($_GET['servicio']) : 'Básico'); ?></h3>
-            
-            <fieldset>
-                <legend>👤 Datos Personales</legend>
-                <label>Nombre:*</label><input type="text" name="name" required value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>"><br>
-                <label>Apellido:*</label><input type="text" name="lastName" required value="<?php echo isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : ''; ?>"><br>
-                <label>Teléfono:*</label><input type="tel" name="phone" pattern="[0-9]{10,15}" required value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>"><br>
-                <label>Email:*</label><input type="email" name="email" required value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>"><br>
-                <label>Dirección:</label><input type="text" name="location" value="<?php echo isset($_POST['location']) ? htmlspecialchars($_POST['location']) : ''; ?>"><br>
-            </fieldset>
+        <?php elseif (!empty($errorMessage)): ?>
+            <div class="alert-modern alert-error">
+                <h2>Error</h2>
+                <p><?php echo htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8'); ?></p>
+                <a href="reserva.php?servicio=<?php echo htmlspecialchars($_GET['servicio'] ?? 'basico', ENT_QUOTES, 'UTF-8'); ?>" class="reserva-btn">Intentar nuevamente</a>
+            </div>
 
-            <fieldset>
-                <legend>🚗 Datos del Vehículo</legend>
-                <label>Marca:*</label>
-                <select name="brand" required>
-                    <option value="">Seleccione marca</option>
-                    <option value="Ford" <?php echo (isset($_POST['brand']) && $_POST['brand'] == 'Ford') ? 'selected' : ''; ?>>Ford</option>
-                    <option value="Chevrolet" <?php echo (isset($_POST['brand']) && $_POST['brand'] == 'Chevrolet') ? 'selected' : ''; ?>>Chevrolet</option>
-                    <!-- Más opciones -->
-                </select><br>
-                
-                <label>Tipo:*</label>
-                <select name="type" required>
-                    <option value="">Seleccione tipo</option>
-                    <option value="auto" <?php echo (isset($_POST['type']) && $_POST['type'] == 'auto') ? 'selected' : ''; ?>>Auto</option>
-                    <option value="camioneta" <?php echo (isset($_POST['type']) && $_POST['type'] == 'camioneta') ? 'selected' : ''; ?>>Camioneta</option>
-                    <option value="suv" <?php echo (isset($_POST['type']) && $_POST['type'] == 'suv') ? 'selected' : ''; ?>>SUV</option>
-                </select><br>
-                
-                <label>Modelo:*</label><input type="text" name="model" required value="<?php echo isset($_POST['model']) ? htmlspecialchars($_POST['model']) : ''; ?>"><br>
-                <label>Año:*</label><input type="number" name="releaseDate" min="1950" max="2030" required value="<?php echo isset($_POST['releaseDate']) ? htmlspecialchars($_POST['releaseDate']) : '2010'; ?>"><br>
-                <label>Patente:*</label><input type="text" name="patent" required value="<?php echo isset($_POST['patent']) ? htmlspecialchars($_POST['patent']) : ''; ?>"><br>
-                <label>Detalles adicionales:</label><textarea name="details"><?php echo isset($_POST['details']) ? htmlspecialchars($_POST['details']) : ''; ?></textarea><br>
-            </fieldset>
+        <?php else: ?>
+            <form method="POST" action="reserva.php" id="reservaForm" autocomplete="on">
+                <input type="hidden" name="servicio" value="<?php echo isset($_GET['servicio']) ? htmlspecialchars($_GET['servicio'], ENT_QUOTES, 'UTF-8') : 'basico'; ?>">
 
-            <fieldset>
-                <legend>📅 Datos del Turno</legend>
-                <label>Fecha:*</label><input type="date" name="date" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" required value="<?php echo isset($_POST['date']) ? htmlspecialchars($_POST['date']) : ''; ?>"><br>
-                <label>Hora:*</label>
-                <select name="datetime" required>
-                    <option value="">Seleccione hora</option>
-                    <option value="09:00">09:00</option>
-                    <option value="11:00">11:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="16:00">16:00</option>
-                </select><br>
-            </fieldset>
+                <h1 class="reserva-title">Reservar Turno</h1>
 
-            <input type="submit" name="enviar" value="Confirmar Reserva" class="enviar">
-        </form>
+                <fieldset class="reserva-fieldset">
+                    <legend>Datos Personales</legend>
+                    
+                    <label for="name">Nombre *</label>
+                    <input id="name" name="name" type="text" required maxlength="50" placeholder="Tu nombre">
+
+                    <label for="lastName">Apellido *</label>
+                    <input id="lastName" name="lastName" type="text" required maxlength="50" placeholder="Tu apellido">
+
+                    <label for="phone">Teléfono *</label>
+                    <input id="phone" name="phone" type="tel" required pattern="[0-9+\-\s]{6,20}" maxlength="20" placeholder="Ej: 2291-416897">
+
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="email" required maxlength="100" placeholder="tu@email.com">
+
+                    <label for="location">Dirección</label>
+                    <input id="location" name="location" type="text" maxlength="200" placeholder="Tu dirección">
+                </fieldset>
+
+                <fieldset class="reserva-fieldset">
+                    <legend>Datos del Vehículo</legend>
+
+                    <label for="brand">Marca *</label>
+                    <input id="brand" name="brand" type="text" required maxlength="50" placeholder="Ej: Ford, Toyota">
+
+                    <label for="type">Tipo *</label>
+                    <select id="type" name="type" required>
+                        <option value="auto">Auto</option>
+                        <option value="camioneta">Camioneta</option>
+                        <option value="suv">SUV</option>
+                    </select>
+
+                    <label for="model">Modelo *</label>
+                    <input id="model" name="model" type="text" required maxlength="50" placeholder="Ej: Focus, Corolla">
+
+                    <label for="releaseDate">Año</label>
+                    <input id="releaseDate" name="releaseDate" type="number" min="1900" max="<?php echo date('Y')+1; ?>" placeholder="Ej: 2020">
+
+                    <label for="patent">Patente *</label>
+                    <input id="patent" name="patent" type="text" required maxlength="15" style="text-transform:uppercase" placeholder="Ej: AB123CD">
+
+                    <label for="color">Color *</label>
+                    <input id="color" name="color" type="text" required maxlength="30" placeholder="Ej: Rojo, Azul, Negro">
+
+                    <label for="details">Detalles adicionales</label>
+                    <textarea id="details" name="details" maxlength="500" placeholder="Observaciones sobre el vehículo..."></textarea>
+                </fieldset>
+
+                <fieldset class="reserva-fieldset">
+                    <legend>Fecha y Hora del Turno</legend>
+
+                    <label for="date">Fecha *</label>
+                    <input id="date" name="date" type="date" required>
+
+                    <label for="datetime">Hora *</label>
+                    <input id="datetime" name="datetime" type="time" required>
+                </fieldset>
+
+                <button type="submit" class="reserva-btn">Confirmar reserva</button>
+            </form>
         <?php endif; ?>
     </div>
+
+    <script>
+        // Forzar fecha mínima (mañana)
+        (function(){
+            const d = new Date();
+            d.setDate(d.getDate() + 1);
+            const min = d.toISOString().split('T')[0];
+            const dateInput = document.getElementById('date');
+            if (dateInput) dateInput.min = min;
+        })();
+    </script>
 </body>
 </html>
