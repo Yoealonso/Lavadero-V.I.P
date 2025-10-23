@@ -32,7 +32,7 @@ class WhatsAppNotificacionService implements NotificacionServiceInterface {
                "🚗 Vehículo: {$turno['vehiculo']}\n" .
                "📅 Fecha: {$turno['fecha']}\n" .
                "⏰ Hora: {$turno['hora']}\n" .
-               "💲 Precio: $" . number_format($turno['precio'], 0, ',', '.') . "\n\n" .
+               "💲 Precio: $" . number_format($turno['precio_final'], 0, ',', '.') . "\n\n" .
                "Para CONFIRMAR tu turno, haz clic aquí:\n" .
                "{$turno['url_confirmacion']}\n\n" .
                "Si no puedes asistir, por favor ignora este mensaje.\n" .
@@ -60,7 +60,7 @@ class WhatsAppNotificacionService implements NotificacionServiceInterface {
                "Vehículo: {$turno['vehiculo']} ({$turno['patente']})\n" .
                "Fecha: {$turno['fecha']}\n" .
                "Hora: {$turno['hora']}\n" .
-               "Precio: $" . number_format($turno['precio'], 0, ',', '.') . "\n\n" .
+               "Precio: $" . number_format($turno['precio_final'], 0, ',', '.') . "\n\n" .
                "¡Todo listo! 🚗✨";
     }
     
