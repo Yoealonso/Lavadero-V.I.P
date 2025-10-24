@@ -341,33 +341,123 @@ nav a:hover {
   box-shadow: 0 6px 20px rgba(0,0,0,0.6);
 }
 
+.tipo-label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #dcdcdc;
+}
+
+.tipo-select {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0 12px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #1c1c1c;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.tipo-select:hover, .tipo-select:focus {
+  border-color: #9b0b0b;
+  box-shadow: 0 0 5px #9b0b0b;
+}
+
+
 /** === Galeria === **/
 
 #galeria {
   text-align: center;
   padding: 3rem 1rem;
   background: #111;
+  color: #fff;
+  position: relative;
 }
 
 .galeria-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
-.galeria-container img {
+/*contenedor para imagenes desplazables*/
+.galeria-scroll {
+  display: flex;
+  gap: 1rem;
+  scroll-behavior:smooth;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.galeria-scroll::-webkit-scrollbar {
+  display: none; /* Oculta barra en Chrome */
+}
+
+.galeria-scroll img {
+  flex-shrink: 0;
   width: 280px;
   height: 180px;
   object-fit: cover;
-  border-radius: 10px;
-  transition:transform 0.3s;
+  border-radius: 12px;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.galeria-container img:hover {
+
+.galeria-scroll img:hover {
   transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
+/* === Flechas === */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  opacity: 0;
+  z-index: 2;
+}
+/* Mostrar flechas al pasar el mouse */
+.galeria-container:hover .arrow {
+  opacity: 1;
+}
+
+.arrow:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+/* --- Scroll personalizado --- */
+.galeria-slider::-webkit-scrollbar {
+  height: 8px;
+}
+
+.galeria-slider::-webkit-scrollbar-thumb {
+  background: #9b0b0b;
+  border-radius: 4px;
+}
+
+.galeria-slider::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
 
 /** === Contacto === **/
 #contacto {
@@ -389,5 +479,45 @@ footer {
   font-size: 0.9em;
 }
 
-/* ============================
-   🌐 Responsive Design
+/** === Responsive === **/
+@media (max-width: 700px) {
+  .servicios-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .servicio {
+    width: 90%;
+  }
+
+  .banner {
+    height: 220px;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  @media (max-width: 768px) {
+  .galeria-scroll img {
+    width: 220px;
+    height: 140px;
+  }
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
