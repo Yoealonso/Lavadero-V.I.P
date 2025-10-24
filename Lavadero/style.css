@@ -78,6 +78,90 @@ nav {
   box-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
+header a { 
+    background: #0077b6;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #caf0f8;
+}
+
+.admin-btn {
+  background: #023e8a;
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+
+/* === Hero Section === */
+#hero {
+  background: linear-gradient(to right, #0077b6, #0096c7);
+  color: white;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.hero-content {
+  max-width: 700px;
+  margin: auto;
+}
+
+.hero-content h2 {
+  font-size: 2.2em;
+  margin-bottom: 0.5rem;
+}
+
+.hero-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1em;
+}
+
+/* === Botón === */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #00b4d8;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #0077b6;
+}
+
+/* === Servicios === */
+#servicios {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
 nav a {
   color: #f5f5f5;
   text-decoration: none;
@@ -208,6 +292,30 @@ nav a:hover {
   flex-wrap: wrap;
   gap: 30px;
   margin-top: 2rem;
+}
+
+.servicio {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  width: 270px;
+  transition: 0.3s;
+}
+
+.servicio:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.servicio img {
+  width: 80px;
+  margin-bottom: 1rem;
+}
+
+/* === Contacto === */
+#contacto {
+  background: #e0f7fa;
 }
 
 .servicio {
@@ -360,17 +468,15 @@ nav a:hover {
 
 .contacto-container p {
   margin: 8px 0;
-  color: #ccc;
 }
 
-/** === Footer === **/
+/* === Footer === */
 footer {
-  background: #000;
-  color: #888;
+  background: #0077b6;
+  color: white;
   text-align: center;
   padding: 1rem;
   font-size: 0.9em;
-  border-top: 1px solid #222;
 }
 
 /** === Responsive === **/
