@@ -9,8 +9,8 @@ class DBPrecioService implements PrecioServiceInterface {
     public function calcularPrecio(string $servicio, string $tipoVehiculo): float {
         $stmt = $this->db->prepare(
             "SELECT p.precio FROM precio_servicio p 
-             JOIN servicio s ON p.idservicio = s.idservicio 
-             WHERE s.nombre = ? AND p.tipo_vehiculo = ?"
+            JOIN servicio s ON p.idservicio = s.idservicio 
+            WHERE s.nombre = ? AND p.tipo_vehiculo = ?"
         );
         $stmt->bind_param("ss", $servicio, $tipoVehiculo);
         $stmt->execute();

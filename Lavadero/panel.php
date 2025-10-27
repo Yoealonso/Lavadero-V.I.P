@@ -55,13 +55,13 @@ $busqueda = $_GET['busqueda'] ?? '';
 
 // Construir consulta con filtros
 $query = "SELECT t.*, c.nombre, c.apellido, c.telefono, c.email, 
-                 v.marca, v.modelo, v.patente, v.color, 
-                 s.nombre as servicio_nombre, s.descripcion as servicio_desc
-          FROM turno t 
-          JOIN cliente c ON t.idcliente = c.idcliente 
-          JOIN vehiculo v ON t.idvehiculo = v.idvehiculo 
-          JOIN servicio s ON t.idservicio = s.idservicio 
-          WHERE 1=1";
+                v.marca, v.modelo, v.patente, v.color, 
+                s.nombre as servicio_nombre, s.descripcion as servicio_desc
+        FROM turno t 
+        JOIN cliente c ON t.idcliente = c.idcliente 
+        JOIN vehiculo v ON t.idvehiculo = v.idvehiculo 
+        JOIN servicio s ON t.idservicio = s.idservicio 
+        WHERE 1=1";
 
 $params = [];
 $types = '';
@@ -259,7 +259,7 @@ $stats = mysqli_fetch_assoc($statsResult);
                 <div>
                     <label><strong>Buscar:</strong></label>
                     <input type="text" name="busqueda" value="<?= htmlspecialchars($busqueda) ?>" 
-                           placeholder="Nombre, apellido, patente..." style="width: 100%; padding: 8px;">
+                        placeholder="Nombre, apellido, patente..." style="width: 100%; padding: 8px;">
                 </div>
                 
                 <div style="display: flex; align-items: end; gap: 10px;">
