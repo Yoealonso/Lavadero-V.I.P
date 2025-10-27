@@ -22,7 +22,10 @@ class TurnoService {
             throw new Exception("No hay turnos disponibles para la fecha seleccionada. Máximo 3 turnos por día.");
         }
         
-        $precio = $this->precioService->calcularPrecio($datosValidados['servicio'], $datosValidados['tipo_vehiculo']);
+        // Obtener plazas (solo para limpieza de tapizados)
+        $plazas = ($datosValidados['servicio'] === 'limpieza-tapizados') ? $datosValidados['plazas'] : 4;
+        
+        $precio = $this->precioService->calcularPrecio($datosValidados['servicio'], $datosValidados['tipo_vehiculo'], $plazas);
         $token = bin2hex(random_bytes(16));
         
         $idCliente = $this->turnoRepository->guardarCliente($datosValidados);
@@ -30,7 +33,7 @@ class TurnoService {
         $idServicio = $this->turnoRepository->obtenerServicioId($datosValidados['servicio']);
         $idTurno = $this->turnoRepository->guardarTurno($datosValidados, $idCliente, $idVehiculo, $idServicio, $precio, $token);
         
-        $turnoData = $this->construirDatosTurno($datosValidados, $idTurno, $precio, $token);
+        $turnoData = $this->construirDatosTurno($datosValidados, $idTurno, $precio, $token, $plazas);
         
         // Enviar notificaciones
         $this->notificacionService->enviarNotificacionLavadero($turnoData);
@@ -42,10 +45,10 @@ class TurnoService {
         return $turnoData;
     }
     
-    private function construirDatosTurno(array $datos, int $idTurno, float $precio, string $token): array {
+    private function construirDatosTurno(array $datos, int $idTurno, float $precio, string $token, int $plazas = 4): array {
         $baseUrl = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
         
-        return [
+        $turnoData = [
             'id' => $idTurno,
             'cliente' => $datos['nombre'] . ' ' . $datos['apellido'],
             'cliente_nombre' => $datos['nombre'],
@@ -62,13 +65,30 @@ class TurnoService {
             'precio_final' => $precio,
             'url_confirmacion' => $baseUrl . "/confirmar_turno.php?token=" . $token
         ];
+        
+        // Agregar información de plazas si es limpieza de tapizados
+        if ($datos['servicio'] === 'limpieza-tapizados') {
+            $turnoData['plazas'] = $plazas;
+            $turnoData['servicio_nombre'] .= " ({$plazas} plazas)";
+        }
+        
+        return $turnoData;
     }
     
     private function obtenerNombreServicio(string $servicio): string {
         $nombres = [
-            'basico' => 'Lavado Básico',
-            'premium' => 'Lavado Premium', 
-            'full' => 'Lavado Full'
+            'pre-venta-basic' => 'Pre Venta Basic',
+            'pre-venta-premium' => 'Pre Venta Premium',
+            'lavado-premium-auto' => 'Lavado Premium Auto',
+            'lavado-premium-camioneta' => 'Lavado Premium Camioneta',
+            'lavado-premium-suv' => 'Lavado Premium SUV',
+            'lavado-vip-extreme' => 'Lavado VIP Extreme',
+            'tratamiento-ceramico' => 'Tratamiento Ceramico',
+            'abrillantado-carroceria' => 'Abrillantado de Carroceria',
+            'limpieza-motor' => 'Limpieza y Acondicionado de Motor',
+            'pulido-opticas' => 'Pulido y Sellado de Opticas',
+            'pintura-llantas' => 'Pintura de Llantas',
+            'limpieza-tapizados' => 'Limpieza de Tapizados'
         ];
         return $nombres[$servicio] ?? 'Servicio';
     }
@@ -91,9 +111,10 @@ class ValidadorTurno {
             'patente' => strtoupper($this->sanitizarTexto($data['patent'] ?? '')),
             'color' => $this->sanitizarTexto($data['color'] ?? ''),
             'detalles' => $this->sanitizarTexto($data['details'] ?? ''),
+            'plazas' => intval($data['plazas'] ?? 4),
             'fecha' => $this->validarFecha($data['date']),
             'hora' => $data['datetime'],
-            'servicio' => $this->sanitizarTexto($data['servicio'] ?? 'basico')
+            'servicio' => $this->sanitizarTexto($data['servicio_real'] ?? $data['servicio'] ?? 'pre-venta-basic')
         ];
     }
     
@@ -135,3 +156,5 @@ class ValidadorTurno {
     }
 }
 ?>
+
+

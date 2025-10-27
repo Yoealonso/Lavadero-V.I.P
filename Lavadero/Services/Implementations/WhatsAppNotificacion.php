@@ -27,41 +27,41 @@ class WhatsAppNotificacionService implements NotificacionServiceInterface {
     
     private function construirMensajeConfirmacionCliente(array $cliente, array $turno): string {
         return "¡Hola {$cliente['nombre']}! 📅\n\n" .
-               "Tu turno en VIP CAR WASH está pendiente de confirmación:\n" .
-               "📋 Servicio: {$turno['servicio']}\n" .
-               "🚗 Vehículo: {$turno['vehiculo']}\n" .
-               "📅 Fecha: {$turno['fecha']}\n" .
-               "⏰ Hora: {$turno['hora']}\n" .
-               "💲 Precio: $" . number_format($turno['precio_final'], 0, ',', '.') . "\n\n" .
-               "Para CONFIRMAR tu turno, haz clic aquí:\n" .
-               "{$turno['url_confirmacion']}\n\n" .
-               "Si no puedes asistir, por favor ignora este mensaje.\n" .
-               "¡Gracias! 🚗💨";
+            "Tu turno en VIP CAR WASH está pendiente de confirmación:\n" .
+            "📋 Servicio: {$turno['servicio']}\n" .
+            "🚗 Vehículo: {$turno['vehiculo']}\n" .
+            "📅 Fecha: {$turno['fecha']}\n" .
+            "⏰ Hora: {$turno['hora']}\n" .
+            "💲 Precio: $" . number_format($turno['precio_final'], 0, ',', '.') . "\n\n" .
+            "Para CONFIRMAR tu turno, haz clic aquí:\n" .
+            "{$turno['url_confirmacion']}\n\n" .
+            "Si no puedes asistir, por favor ignora este mensaje.\n" .
+            "¡Gracias! 🚗💨";
     }
     
     private function construirMensajeNotificacionLavadero(array $turno): string {
         return "🆕 NUEVO TURNO SOLICITADO\n\n" .
-               "Cliente: {$turno['cliente']}\n" .
-               "Teléfono: {$turno['cliente_telefono']}\n" .
-               "Servicio: {$turno['servicio_nombre']}\n" .
-               "Vehículo: {$turno['vehiculo']} ({$turno['patente']})\n" .
-               "Fecha: {$turno['fecha_formateada']}\n" .
-               "Hora: {$turno['hora']}\n" .
-               "Precio: $" . number_format($turno['precio_final'], 0, ',', '.') . "\n" .
-               "Estado: Pendiente de confirmación\n\n" .
-               "Esperando confirmación del cliente...";
+            "Cliente: {$turno['cliente']}\n" .
+            "Teléfono: {$turno['cliente_telefono']}\n" .
+            "Servicio: {$turno['servicio_nombre']}\n" .
+            "Vehículo: {$turno['vehiculo']} ({$turno['patente']})\n" .
+            "Fecha: {$turno['fecha_formateada']}\n" .
+            "Hora: {$turno['hora']}\n" .
+            "Precio: $" . number_format($turno['precio_final'], 0, ',', '.') . "\n" .
+            "Estado: Pendiente de confirmación\n\n" .
+            "Esperando confirmación del cliente...";
     }
     
     private function construirMensajeConfirmacionLavadero(array $turno): string {
         return "✅ TURNO CONFIRMADO\n\n" .
-               "Cliente: {$turno['cliente']}\n" .
-               "Teléfono: {$turno['telefono']}\n" .
-               "Servicio: {$turno['servicio']}\n" .
-               "Vehículo: {$turno['vehiculo']} ({$turno['patente']})\n" .
-               "Fecha: {$turno['fecha']}\n" .
-               "Hora: {$turno['hora']}\n" .
-               "Precio: $" . number_format($turno['precio_final'], 0, ',', '.') . "\n\n" .
-               "¡Todo listo! 🚗✨";
+            "Cliente: {$turno['cliente']}\n" .
+            "Teléfono: {$turno['telefono']}\n" .
+            "Servicio: {$turno['servicio']}\n" .
+            "Vehículo: {$turno['vehiculo']} ({$turno['patente']})\n" .
+            "Fecha: {$turno['fecha']}\n" .
+            "Hora: {$turno['hora']}\n" .
+            "Precio: $" . number_format($turno['precio_final'], 0, ',', '.') . "\n\n" .
+            "¡Todo listo! 🚗✨";
     }
     
     private function enviarMensaje(string $numero, string $mensaje): bool {

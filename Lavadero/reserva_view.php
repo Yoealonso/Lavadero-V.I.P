@@ -37,14 +37,32 @@
             <div class="alert-modern alert-error">
                 <h2>Error</h2>
                 <p><?php echo htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8'); ?></p>
-                <a href="reserva.php?servicio=<?php echo htmlspecialchars($_GET['servicio'] ?? 'basico', ENT_QUOTES, 'UTF-8'); ?>" class="reserva-btn">Intentar nuevamente</a>
+                <a href="reserva.php?servicio=<?php echo htmlspecialchars($_GET['servicio'] ?? 'pre-venta-basic', ENT_QUOTES, 'UTF-8'); ?>" class="reserva-btn">Intentar nuevamente</a>
             </div>
 
         <?php else: ?>
             <form method="POST" action="reserva.php" id="reservaForm" autocomplete="on">
-                <input type="hidden" name="servicio" value="<?php echo isset($_GET['servicio']) ? htmlspecialchars($_GET['servicio'], ENT_QUOTES, 'UTF-8') : 'basico'; ?>">
+                <input type="hidden" name="servicio" value="<?php echo htmlspecialchars($_GET['servicio'] ?? 'pre-venta-basic', ENT_QUOTES, 'UTF-8'); ?>">
 
-                <h1 class="reserva-title">Reservar Turno</h1>
+                <h1 class="reserva-title">Reservar Turno - 
+                    <?php 
+                    $servicios_nombres = [
+                        'pre-venta-basic' => 'Pre Venta Basic',
+                        'pre-venta-premium' => 'Pre Venta Premium',
+                        'lavado-premium-auto' => 'Lavado Premium Auto',
+                        'lavado-premium-camioneta' => 'Lavado Premium Camioneta',
+                        'lavado-premium-suv' => 'Lavado Premium SUV',
+                        'lavado-vip-extreme' => 'Lavado VIP Extreme',
+                        'tratamiento-ceramico' => 'Tratamiento Ceramico',
+                        'abrillantado-carroceria' => 'Abrillantado de Carroceria',
+                        'limpieza-motor' => 'Limpieza de Motor',
+                        'pulido-opticas' => 'Pulido de Opticas',
+                        'pintura-llantas' => 'Pintura de Llantas',
+                        'limpieza-tapizados' => 'Limpieza de Tapizados'
+                    ];
+                    echo htmlspecialchars($servicios_nombres[$_GET['servicio'] ?? 'pre-venta-basic'] ?? 'Servicio');
+                    ?>
+                </h1>
 
                 <fieldset class="reserva-fieldset">
                     <legend>Datos Personales</legend>
@@ -89,6 +107,16 @@
 
                     <label for="color">Color *</label>
                     <input id="color" name="color" type="text" required maxlength="30" placeholder="Ej: Rojo, Azul, Negro">
+
+                    <?php if (($_GET['servicio'] ?? '') === 'limpieza-tapizados'): ?>
+                    <label for="plazas">Número de Plazas *</label>
+                    <select id="plazas" name="plazas" required>
+                        <option value="4">4 plazas</option>
+                        <option value="7">7 plazas</option>
+                    </select>
+                    <?php else: ?>
+                    <input type="hidden" name="plazas" value="4">
+                    <?php endif; ?>
 
                     <label for="details">Detalles adicionales</label>
                     <textarea id="details" name="details" maxlength="500" placeholder="Observaciones sobre el vehículo..."></textarea>
