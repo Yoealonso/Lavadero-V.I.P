@@ -258,6 +258,31 @@ nav a:hover {
   box-shadow: 0 0 5px #9b0b0b;
 }
 
+/** === Otros SErvicios == **/
+#otros-servicios {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #0f0f0f; /* un poco más oscuro que servicios normales */
+}
+
+#otros-servicios h2 {
+  font-size: 2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.otros-servicios-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.otros-servicios-container .servicio {
+  width: 220px; /* un poco más pequeño que los servicios principales */
+}
+
+
 
 /** === Galeria === **/
 
