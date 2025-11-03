@@ -1,22 +1,21 @@
 <?php
 session_start();
 
-$servicio = $_GET['servicio'] ?? '';
-
-// Mapear los servicios simplificados del frontend a los servicios reales
+// Mapeo de servicios
 $servicios_mapeo = [
     'basico' => 'pre-venta-basic',
     'premium' => 'pre-venta-premium', 
-    'full' => 'lavado-premium-auto', 
+    'full' => 'lavado-premium-auto',
     'tapizados' => 'limpieza-tapizados'
 ];
 
-$servicio_real = $servicios_mapeo[$servicio] ?? 'pre-venta-basic';
+$servicio_solicitado = $_GET['servicio'] ?? 'pre-venta-basic';
+$servicio_real = $servicios_mapeo[$servicio_solicitado] ?? $servicio_solicitado;
 
-// Guardar en sesión para usar en el formulario de reserva
+// Guardar en sesión para usar en reserva.php
 $_SESSION['servicio_redirigido'] = $servicio_real;
 
-// Redirigir a reserva.php con el servicio correcto
+// Redirigir a la página de reserva
 header("Location: reserva.php?servicio=" . urlencode($servicio_real));
 exit;
 ?>
