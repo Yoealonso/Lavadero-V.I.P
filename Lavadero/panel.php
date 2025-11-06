@@ -1,6 +1,6 @@
 <?php
 // panel.php - Panel de administración avanzado
-include_once("C:/xampp/htdocs/lavadero/Conexion/conexion.php");
+include_once "./Conexion/conexion.php";
 
 // Manejar acciones
 $action = $_GET['action'] ?? '';
@@ -150,13 +150,13 @@ $stats = mysqli_fetch_assoc($statsResult);
             border-radius: 8px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-left: 4px solid #0077b6;
+            border-left: 4px solid #b10606ff;
         }
         
         .stat-number {
             font-size: 24px;
             font-weight: bold;
-            color: #0077b6;
+            color: #b10606ff;
         }
         
         .stat-label {
@@ -229,10 +229,131 @@ $stats = mysqli_fetch_assoc($statsResult);
         <!-- FILTROS -->
         <div class="filtros-container">
             <h3>🔍 Filtros y Búsqueda</h3>
-            <form method="GET" action="panel.php" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+
+            
+    <style>
+        /* === ESTILOS DE FILTROS === */
+        .filtros-container {
+            margin-top: 10px;
+        }
+
+        .filtros-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            align-items: end;
+            margin-top: 10px;
+        }
+
+        .filtros-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #990505ff;
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .filtros-form select,
+        .filtros-form input[type="date"],
+        .filtros-form input[type="text"] {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #4b4848ff;
+            color: #fff;
+            box-sizing: border-box;
+            transition: border 0.2s ease-in-out;
+        }
+          .filtros-form select:focus,
+    .filtros-form input:focus {
+        border-color: #b10606;
+        outline: none;
+    }
+
+/* === BOTONES === */
+.botones-filtros {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+    min-width: 0;
+}
+
+/* columnas de los botones */
+.col-aplicar,
+.col-limpiar {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+/* estilo base de botones */
+.btn-aplicar,
+.btn-limpiar {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-sizing: border-box;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+/* aplicar */
+.btn-aplicar {
+    background-color: #b10606;
+}
+
+.btn-aplicar:hover {
+    background-color: #d60b0b;
+}
+
+/* limpiar */
+.btn-limpiar {
+    background-color: #6c757d;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-limpiar:hover {
+    background-color: #81878c;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+    .botones-filtros {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .col-aplicar,
+    .col-limpiar {
+        width: 100%;
+    }
+
+    .col-aplicar {
+        margin-bottom: 10px; /* espacio entre botones */
+    }
+}
+
+
+    </style>
+
+            <form method="GET" action="panel.php" class="filtros-form">
                 <div>
                     <label><strong>Estado:</strong></label>
-                    <select name="estado" style="width: 100%; padding: 8px;">
+                    <select name="estado">
                         <option value="">Todos los estados</option>
                         <option value="pendiente" <?= $filtroEstado == 'pendiente' ? 'selected' : '' ?>>Pendiente</option>
                         <option value="confirmado" <?= $filtroEstado == 'confirmado' ? 'selected' : '' ?>>Confirmado</option>
@@ -243,12 +364,12 @@ $stats = mysqli_fetch_assoc($statsResult);
                 
                 <div>
                     <label><strong>Fecha:</strong></label>
-                    <input type="date" name="fecha" value="<?= $filtroFecha ?>" style="width: 100%; padding: 8px;">
+                    <input type="date" name="fecha" value="<?= $filtroFecha ?>">
                 </div>
                 
                 <div>
                     <label><strong>Servicio:</strong></label>
-                    <select name="servicio" style="width: 100%; padding: 8px;">
+                    <select name="servicio" >
                         <option value="">Todos los servicios</option>
                         <option value="basico" <?= $filtroServicio == 'basico' ? 'selected' : '' ?>>Básico</option>
                         <option value="premium" <?= $filtroServicio == 'premium' ? 'selected' : '' ?>>Premium</option>
@@ -259,16 +380,16 @@ $stats = mysqli_fetch_assoc($statsResult);
                 <div>
                     <label><strong>Buscar:</strong></label>
                     <input type="text" name="busqueda" value="<?= htmlspecialchars($busqueda) ?>" 
-                        placeholder="Nombre, apellido, patente..." style="width: 100%; padding: 8px;">
+                        placeholder="Nombre, apellido, patente..." >
                 </div>
                 
-                <div style="display: flex; align-items: end; gap: 10px;">
-                    <button type="submit" style="padding: 8px 15px; background: #0077b6; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                        🔍 Aplicar Filtros
-                    </button>
-                    <a href="panel.php" style="padding: 8px 15px; background: #6c757d; color: white; text-decoration: none; border-radius: 4px;">
-                        🗑️ Limpiar
-                    </a>
+                <div class="botones-filtros">
+                    <div class="col-aplicar">
+                        <button type="submit" class="btn-aplicar">🔍 Aplicar Filtros</button>
+                    </div>
+                    <div class="col-limpiar">
+                    <a href="panel.php" class="btn-limpiar">🗑️Limpiar</a>
+                </div>
                 </div>
             </form>
         </div>
@@ -284,7 +405,7 @@ $stats = mysqli_fetch_assoc($statsResult);
         <?php else: ?>
             <table border="1" style="width:100%; border-collapse:collapse; margin-top: 20px; font-size: 14px;">
                 <thead>
-                    <tr style="background-color: #0077b6; color: white;">
+                    <tr style="background-color: #b10606ff; color: white;">
                         <th>Fecha</th>
                         <th>Hora</th>
                         <th>Cliente</th>
@@ -386,4 +507,3 @@ $stats = mysqli_fetch_assoc($statsResult);
 <?php
 $stmt->close();
 ?>
->>>>>>> 96bbaf1 (index y css)

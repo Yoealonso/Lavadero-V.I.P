@@ -9,5 +9,5 @@ if (php_sapi_name() == 'cli-server') {
 
 // Redirige siempre al index.html (útil para SPA o proyectos mixtos)
 require_once __DIR__ . 'Lavadero/index.html';
-//php -S localhost:8000 router.php
+
 
