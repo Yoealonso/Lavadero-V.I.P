@@ -6,7 +6,7 @@ session_start();
 
 include_once './Conexion/conexion.php';
 include_once './Services/Interfaces/TurnoRepositoryInterface.php';
-include_once './Services/Interfaces/NotificationServiceInterface.php';
+include_once './Services/Interfaces/NotificacionServiceInterface.php';
 include_once './Services/Interfaces/PrecioServiceInterface.php';
 include_once './Services/Implementations/MySQLTurnoRepository.php';
 include_once './Services/Implementations/WhatsAppNotificacionService.php';
