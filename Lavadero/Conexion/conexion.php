@@ -3,9 +3,9 @@ class Database {
     private static $instance = null;
     private $link;
     
-    private $host = "localhost:3307";
+    private $host = "localhost";
     private $user = "root";
-    private $password ="";
+    private $password = "";
     private $database = "lavadero";
     
     private function __construct() {
@@ -31,9 +31,6 @@ class Database {
     }
     
     public function getConnection() {
-        if (!$this->link || $this->link->ping() === false) {
-            $this->connect();
-        }
         return $this->link;
     }
     
