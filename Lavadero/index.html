@@ -11,24 +11,17 @@
 </head>
 
 <body>
-
-  <!-- Banner principal -->
   <section class="banner">
     <div class="banner-texto">
     </div>
   </section>
 
-
   <nav>
-    <a href="servicios" style="margin-right: 40px;" class="na">Servicios</a>
-    <a href="contacto" style="margin-right: 40px;" class="na">Contacto</a>
+    <a href="#otros-servicios" style="margin-right: 40px;" class="na">Otros Servicios</a>
+    <a href="contacto.php" style="margin-right: 40px;" class="na">Contacto</a>
     <a href="panel.php" class="admin-btn">Admin</a>
   </nav>
 
-  <article class="article">
-    <section></section>
-    <section></section>
-  </article>
 
   <section id="hero">
     <div class="hero-content">
@@ -44,14 +37,17 @@
     <div class="servicios-container">
 
       <div class="servicio">
-        <img src="img/pre-venta-basic.jpg" alt="Lavado Básico">
+
+        <img src="img/servicios/pre-venta-basic.jpg" alt="Lavado Básico">
         <h3>Pre Venta Basic</h3>
         <p>Limpieza de tapizados, limpieza de motor, lavado premium, encerado con maquina rotorbital.</p>
-        <a href="vehiculo.php?servicio=basico" class="btn">Reservar</a>
+
+        <a href="vehiculo.php?servicio=pre-venta-basic" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/pre-venta-premium.jpg" alt="Lavado Premium">
+
+        <img src="img/servicios/pre-venta-premium.jpg" alt="Lavado Premium">
         <h3>Pre Venta Premium</h3>
         <p>Este servicio cuenta con lavado y descontaminado de carroceria, abrillantado en un solo paso (correccion de
           barniz, eliminado de marcas superficiales
@@ -59,51 +55,53 @@
           full, limpieza y acondicionado de motor
           y cofre.
         </p>
-        <a href="vehiculo.php?servicio=premium" class="btn">Reservar</a>
+
+        <a href="vehiculo.php?servicio=pre-venta-premium" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/lavado-premium-auto.jpg" alt="Lavado full auto">
+        <img src="img/servicios/lavado-premium-auto.jpg" alt="Lavado full auto">
         <h3>Lavado Premium Auto</h3>
         <p>Lavado de carroceria con espuma de shampoo neutro, encerado de carroceria, aspirado/repaso/nutrido de
           interior, desinfeccion con amonio cuaternario,
           nutrido de plasticos exteriores y cubiertas.
         </p>
-        <a href="vehiculo.php?servicio=full" class="btn">Reservar</a>
+
+        <a href="vehiculo.php?servicio=lavado-premium-auto" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/lavado-premium-camioneta.jpg" alt="Lavado Full camioneta">
+        <img src="img/servicios/lavado-premium-camioneta.jpg" alt="Lavado Full camioneta">
         <h3>Lavado Premium Camioneta</h3>
         <p>Lavado de carroceria con espuma de shampoo neutro, encerado de carroceria, aspirado/repaso/nutrido de
           interior, desinfeccion con amonio cuaternario,
           nutrido de plasticos exteriores y cubiertas.
         </p>
-        <a href="vehiculo.php?servicio=full" class="btn">Reservar</a>
+        <a href="vehiculo.php?servicio=lavado-premium-camioneta" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/lavado-premium-SUV.jpg" alt="Lavado SUV">
+        <img src="img/servicios/lavado-premium-SUV.jpg" alt="Lavado SUV">
         <h3>Lavado Premium SUV</h3>
         <p>Lavado de carroceria con espuma de shampoo neutro, encerado de carroceria, aspirado/repaso/nutrido de
           interior, desinfeccion con amonio cuaternario,
           nutrido de plasticos exteriores y cubiertas.
         </p>
-        <a href="vehiculo.php?servicio=full" class="btn">Reservar</a>
+        <a href="vehiculo.php?servicio=lavado-premium-suv" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/lavado-vip-extreme-auto.jpg" alt="VIP extreme">
+        <img src="img/servicios/lavado-vip-extreme-auto.jpg" alt="VIP extreme">
         <h3>Lavado VIP Extreme</h3>
         <p>Lavado de carroceria, limpieza de motor, limpieza de chasis, desarme y limpieza de llantas, limpieza de
           calipers y pasaruedas, encerado con maquina
           rotorbital (3 meses de proteccion), aspirado de interiores, descontaminado y nutrido de plasticos y/o cueros.
         </p>
-        <a href="vehiculo.php?servicio=full" class="btn">Reservar</a>
+        <a href="vehiculo.php?servicio=lavado-vip-extreme" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/tratamiento-ceramico.jpg" alt="tratamiento ceramico">
+        <img src="img/servicios/tratamiento-ceramico.jpg" alt="tratamiento ceramico">
         <h3>Tratamiento Ceramico</h3>
         <p>Descontaminado de carroceria, correcion de laca eliminando marcas circulares producidas por el lavado y rayas
           superficiales, abrillantado de realzado de color
@@ -111,91 +109,127 @@
           daño de agentes exteriores y generando repelencia
           excepcional al agua y aceites.
         </p>
-        <a href="vehiculo.php?servicio=tapizados" class="btn">Reservar</a>
+        <a href="vehiculo.php?servicio=tratamiento-ceramico" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/abrillantado-carroceria.jpg" alt="abrillantado carroceria">
+        <img src="img/servicios/abrillantado-carroceria.jpg" alt="abrillantado carroceria">
         <h3>Abrillantado de Carroceria</h3>
         <p>Descontaminado de carroceria, pulido y abrillantado en un solo paso logrando eliminar marcas superficiales y
           brindando un brillo excepcional, sellado con
           cera fusso coat premium con 12 meses de proteccion.
         </p>
-        <a href="vehiculo.php?servicio=tapizados" class="btn">Reservar</a>
+        <a href="vehiculo.php?servicio=abrillantado-carroceria" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/limpieza-de-motor.jpg" alt="limpieza de motor">
+        <img src="img/servicios/limpieza-de-motor.jpg" alt="limpieza de motor">
         <h3>Limpieza y Acondicionado de Motor</h3>
         <p>Limpieza de motor y cofre con espuma de alto poder desengrasante, hidratacion de plasticos y mangueras con
           dressing
           de base acuosa libre de siliconas que permite que no se resequen.
         </p>
-        <a href="vehiculo.php?servicio=tapizados" class="btn">Reservar</a>
+        <a href="vehiculo.php?servicio=limpieza-motor" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/opticas-mashup.jpg" alt="opticas">
+        <img src="img/servicios/limpieza-opticas.jpg" alt="opticas">
         <h3>Pulido y Sellado de Opticas</h3>
         <p>Lijado de plastico cobertor con diferentes espesores de lija al agua dependiendo de el daño de las mismas,
           pulido y
           abrillantado en 2 etapas, mas sellado con cera japonesa de alto poder hidrofico.
         </p>
-        <a href="vehiculo.php?servicio=tapizados" class="btn">Reservar</a>
+        <a href="vehiculo.php?servicio=pulido-opticas" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/llantas.jpg" alt="llantas">
+        <img src="img/servicios/llantas.jpg" alt="llantas">
         <h3>Pintura de Llantas</h3>
-        <p>Lavado y descontaminado ferrico, lijado superficial para eliminar todo tipo de impurezas, pintura en 3 tipos de colores,
+        <p>Lavado y descontaminado ferrico, lijado superficial para eliminar todo tipo de impurezas, pintura en 3 tipos
+          de colores,
           pintura con alto poder al rechazo del residuo de pastilla de freno.
         </p>
-        <a href="vehiculo.php?servicio=tapizados" class="btn">Reservar</a>
+        <a href="vehiculo.php?servicio=pintura-llantas" class="btn">Reservar</a>
       </div>
 
       <div class="servicio">
-        <img src="img/limpieza-tapizados-4.jpg" alt="Limpieza de Tapizados">
+        <img src="img/servicios/limpieza-tapizados.jpg" alt="Limpieza de Tapizados">
         <h3>Limpieza de Tapizados</h3>
         <p>Limpieza con maquina de inyeccion y extraccion, logrando una limpieza y desinfeccion optima. Descontaminacion
-          de piso, techo, puertas, baul, consola central y torpedo, dejando un acabado de fabrica. Nuestro producto de limpieza
-          contiene amonio cuaternario para eliminar virus y bacterias. Al finalizar se realiza un lavado de carroceria mas
+          de piso, techo, puertas, baul, consola central y torpedo, dejando un acabado de fabrica. Nuestro producto de
+          limpieza
+          contiene amonio cuaternario para eliminar virus y bacterias. Al finalizar se realiza un lavado de carroceria
+          mas
           encerado con 2 meses de proteccion.</p>
 
-        <label for="tipoVehiculo" class="tipo-label">Tipo de vehículo:</label>
-        <select id="tipoVehiculo" class="tipo-select">
-          <option value="4">vehiculo 4 plazas</option>
-          <option value="7">Vehículo 7 plazas</option>
-        </select>
-
-        <a href="vehiculo.php?servicio=tapizados" class="btn">Reservar</a>
+        <a href="vehiculo.php?servicio=limpieza-tapizados" class="btn">Reservar</a>
       </div>
+    </section>
 
 
 
 
+   
+
+
+
+     
+
+   <section id="galeria">
+        <h2>Galería de Trabajos</h2>
+        <div class="galeria-container">
+          <button class="arrow left">&#10094;</button>
+          <div class="galeria-scroll">
+            <img src="img/galeria/galeria (2).jpg" alt="Auto lavado">
+            <img src="img/galeria/galeria.jpg" alt="Lavado de motor">
+            <img src="img/galeria/galeria2.jpg" alt="Logo">
+            <img src="img/galeria/galeria3.jpg" alt="Logo">
+            <img src="img/galeria/galeria4.jpg" alt="Logo">
+            <img src="img/galeria/gleria.jpg" alt="Logo">
+            <img src="img/galeria/limpieza-tapizados-7.jpg" alt="Interior limpio">
+            <img src="img/galeria/lavado-premium-auto.jpg" alt="Interior limpio2">
+            <img src="img/galeria/pintura-llantas.jpg" alt="pintura llantas">
+          </div>
+          <button class="arrow right">&#10095;</button>
+        </div>
+      </section>
+
+
+
+       <section id="otros-servicios">
+        <h2>Otros Servicios</h2>
+        <div class="otros-servicios-container">
+          <div class="servicio">
+            <img src="img/otros servicios/alfombras-ziel.jpg" alt="Alfombras Termoformadas ZIEL">
+            <span class="tipo-label">Alfombras Termoformadas ZIEL</span>
+            <a href="vehiculo.php?servicio=alfombras-ziel" class="btn">Comprar</a>
+          </div>
+          <div class="servicio">
+            <img src="img/otros servicios/colchones.jpg" alt="Limpieza de colchones">
+            <span class="tipo-label">Limpieza de colchones</span>
+            <a href="vehiculo.php?servicio=colchones" class="btn">Reservar</a>
+          </div>
+          <div class="servicio">
+            <img src="img/otros servicios/sillones.jpg" alt="Limpieza de sillones">
+            <span class="tipo-label">Limpieza de Sillones</span>
+            <a href="vehiculo.php?servicio=sillones" class="btn">Reservar</a>
+          </div>
+          <div class="servicio">
+            <img src="img/otros servicios/led IR 100.jpg" alt="ir 100">
+            <span class="tipo-label">Lamparas led IR 100</span>
+            <a href="vehiculo.php?servicio=lampara-led-ir" class="btn">Comprar</a>
+          </div>
+          <div class="servicio">
+            <img src="img/otros servicios/led R8.jpg" alt="led r8">
+            <span class="tipo-label">Lamparas led R8</span>
+            <a href="vehiculo.php?servicio=lampara-led-r8" class="btn">Comprar</a>
+          </div>
+        </div>
+      </section>
     </div>
   </section>
 
-  <section id="galeria">
-    <h2>Galería de Trabajos</h2>
-    <div class="galeria-container">
-      <button class="arrow left">&#10094;</button>
-    <div class="galeria-scroll">
-      <img src="img/tratamiento-ceramico.jpg" alt="Auto lavado">
-      <img src="img/limpieza-de-motor.jpg" alt="Lavado de motor">
-      <img src="img/galeria.jpg" alt="Logo">
-      <img src="img/galeria2.jpg" alt="Logo">
-      <img src="img/galeria3.jpg" alt="Logo">
-      <img src="img/galeria4.jpg" alt="Logo">
-      <img src="img/limpieza-tapizados-7.jpg" alt="Interior limpio">
-      <img src="img/limpieza-tapizados-4.jpg" alt="Interior limpio2">
-      <img src="img/pintura-llantas.jpg" alt="pintura llantas">
-    </div>
-    <button class="arrow right">&#10095;</button>
-    </div>
-  </section>
-
-
+  
   <section id="contacto">
     <h2>📍 Contacto</h2>
     <div class="contacto-container">
@@ -216,21 +250,22 @@
 
 
   <script>
-  const scrollContainer = document.querySelector('.galeria-scroll');
-  const btnLeft = document.querySelector('.arrow.left');
-  const btnRight = document.querySelector('.arrow.right');
+    const scrollContainer = document.querySelector('.galeria-scroll');
+    const btnLeft = document.querySelector('.arrow.left');
+    const btnRight = document.querySelector('.arrow.right');
 
-  const scrollAmount = 300; // cuánto se mueve por clic (podés ajustar)
+    const scrollAmount = 300; 
 
-  btnLeft.addEventListener('click', () => {
-    scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-  });
+    btnLeft.addEventListener('click', () => {
+      scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
 
-  btnRight.addEventListener('click', () => {
-    scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  });
-</script>
+    btnRight.addEventListener('click', () => {
+      scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+  </script>
 
 </body>
+
 
 </html>

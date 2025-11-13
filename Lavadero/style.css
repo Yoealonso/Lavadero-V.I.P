@@ -7,8 +7,8 @@ body {
 }
 
 h1, h2, h3 {
-  margin: 0;
-  color: #fff
+    margin: 0;
+    color: #fff
 }
 
 /** === Header con logo y boton admin === **/
@@ -21,7 +21,9 @@ header {
   box-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
+
 header .logo {
+
   display: flex;
   align-items: center;
   gap: 10px;
@@ -33,10 +35,12 @@ header .logo img {
   border-radius: 8px;
 }
 
+
 header .logo h2 {
   font-size: 1.4rem;
   font-weight: 600;
   color: #fff;
+
 }
 
 .admin-btn {
@@ -125,6 +129,7 @@ nav a:hover {
   background: linear-gradient(90deg, #9b0b0b 0%, #ffffff 50%, #9b0b0b 100%);
   background-size: 200%;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -258,6 +263,31 @@ nav a:hover {
   box-shadow: 0 0 5px #9b0b0b;
 }
 
+/** === Otros SErvicios == **/
+#otros-servicios {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #0f0f0f; /* un poco más oscuro que servicios normales */
+}
+
+#otros-servicios h2 {
+  font-size: 2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.otros-servicios-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.otros-servicios-container .servicio {
+  width: 220px; /* un poco más pequeño que los servicios principales */
+}
+
+
 
 /** === Galeria === **/
 
@@ -373,29 +403,33 @@ footer {
   border-top: 1px solid #222;
 }
 
+
 /** === Responsive === **/
-@media (max-width: 700px) {
-  .servicios-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .servicio {
-    width: 90%;
-  }
-
-  .banner {
-    height: 220px;
-  }
-
-  header {
-    flex-direction: column;
-    gap: 10px;
-  }
-  @media (max-width: 768px) {
+/* === Galería: ajuste responsive === */
+@media (max-width: 768px) {
   .galeria-scroll img {
     width: 220px;
     height: 140px;
   }
+
+  .galeria-container {
+    padding: 0 10px;
+  }
+
+  .arrow.left {
+    left: 0;
+  }
+
+  .arrow.right {
+    right: 0;
+  }
+}
+
+@media (max-width: 375px) {
+  .galeria-scroll img {
+    width: 180px;
+    height: 120px;
+  }
 }
 }
+

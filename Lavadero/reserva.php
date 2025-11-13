@@ -4,14 +4,14 @@ ini_set('display_errors', 1);
 
 session_start();
 
-include_once __DIR__ . '/Conexion/conexion.php';
-include_once __DIR__ . '/Services/Interfaces/TurnoRepositoryInterface.php';
-include_once __DIR__ . '/Services/Interfaces/NotificacionServiceInterface.php';
-include_once __DIR__ . '/Services/Interfaces/PrecioServiceInterface.php';
-include_once __DIR__ . '/Services/Implementations/MySQLTurnoRepository.php';
-include_once __DIR__ . '/Services/Implementations/WhatsAppNotificacionService.php';
-include_once __DIR__ . '/Services/Implementations/DBPrecioService.php';
-include_once __DIR__ . '/Services/TurnoService.php';
+include_once './Conexion/conexion.php';
+include_once './Services/Interfaces/TurnoRepositoryInterface.php';
+include_once './Services/Interfaces/NotificationServiceInterface.php';
+include_once './Services/Interfaces/PrecioServiceInterface.php';
+include_once './Services/Implementations/MySQLTurnoRepository.php';
+include_once './Services/Implementations/WhatsAppNotificacionService.php';
+include_once './Services/Implementations/DBPrecioService.php';
+include_once './Services/TurnoService.php';
 
 // Configuración
 $whatsappConfig = [
