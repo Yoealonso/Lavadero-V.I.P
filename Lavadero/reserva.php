@@ -20,7 +20,7 @@ $whatsappConfig = [
     'numero_lavadero' => '2291416897'
 ];
 
-// Mapeo de servicios del frontend
+// Mapeo completo de servicios del frontend a BD
 $servicios_mapeo = [
     'basico' => 'pre-venta-basic',
     'premium' => 'pre-venta-premium', 
@@ -28,16 +28,7 @@ $servicios_mapeo = [
     'tapizados' => 'limpieza-tapizados'
 ];
 
-// Obtener servicio real (viene de vehiculo.php o directamente)
-if (isset($_SESSION['servicio_redirigido'])) {
-    $servicio_real = $_SESSION['servicio_redirigido'];
-    unset($_SESSION['servicio_redirigido']);
-} else {
-    $servicio_solicitado = $_GET['servicio'] ?? 'pre-venta-basic';
-    $servicio_real = $servicios_mapeo[$servicio_solicitado] ?? $servicio_solicitado;
-}
-
-// Array de servicios disponibles para validación
+// Array de servicios disponibles para validación (actualizado)
 $servicios_disponibles = [
     'pre-venta-basic' => 'Pre Venta Basic',
     'pre-venta-premium' => 'Pre Venta Premium',
@@ -53,12 +44,21 @@ $servicios_disponibles = [
     'limpieza-tapizados' => 'Limpieza de Tapizados'
 ];
 
+// Obtener servicio real
+if (isset($_SESSION['servicio_redirigido'])) {
+    $servicio_real = $_SESSION['servicio_redirigido'];
+    unset($_SESSION['servicio_redirigido']);
+} else {
+    $servicio_solicitado = $_GET['servicio'] ?? 'pre-venta-basic';
+    $servicio_real = $servicios_mapeo[$servicio_solicitado] ?? $servicio_solicitado;
+}
+
 // Validar que el servicio existe
 if (!array_key_exists($servicio_real, $servicios_disponibles)) {
     $servicio_real = 'pre-venta-basic';
 }
 
-// Inicializar servicios con inyección de dependencias
+// Inicializar servicios
 $turnoRepository = new MySQLTurnoRepository($link);
 $notificacionService = new WhatsAppNotificacionService(
     $whatsappConfig['api_url'], 
@@ -75,11 +75,16 @@ $reservaData = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
-        // Agregar el servicio real a los datos POST
         $_POST['servicio_real'] = $servicio_real;
         
         $reservaData = $turnoService->procesarSolicitudTurno($_POST);
-        $successMessage = "Turno reservado correctamente. Te hemos enviado un WhatsApp para confirmar.";
+        
+        // Mensaje especial si está en lista de espera
+        if (isset($reservaData['en_lista_espera']) && $reservaData['en_lista_espera']) {
+            $successMessage = "Turno agregado a lista de espera. Te contactaremos si se libera una fecha.";
+        } else {
+            $successMessage = "Turno reservado correctamente. Te hemos enviado un WhatsApp para confirmar.";
+        }
         
     } catch (Exception $e) {
         $errorMessage = $e->getMessage();
@@ -87,8 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Pasar el servicio a la vista
 $_GET['servicio'] = $servicio_real;
-
 include 'reserva_view.php';
 ?>

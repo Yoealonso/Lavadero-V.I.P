@@ -18,6 +18,7 @@ class TurnoService {
         $validador = new ValidadorTurno();
         $datosValidados = $validador->validar($postData);
         
+        // Verificar disponibilidad (3 turnos por día)
         if (!$this->turnoRepository->verificarDisponibilidad($datosValidados['fecha'])) {
             throw new Exception("No hay turnos disponibles para la fecha seleccionada. Máximo 3 turnos por día.");
         }
@@ -33,7 +34,10 @@ class TurnoService {
         $idServicio = $this->turnoRepository->obtenerServicioId($datosValidados['servicio']);
         $idTurno = $this->turnoRepository->guardarTurno($datosValidados, $idCliente, $idVehiculo, $idServicio, $precio, $token);
         
-        $turnoData = $this->construirDatosTurno($datosValidados, $idTurno, $precio, $token, $plazas);
+        // Obtener número de turno para mostrar (restamos 1 porque ya se guardó)
+        $numeroTurno = $this->turnoRepository->asignarNumeroTurno($datosValidados['fecha']) - 1;
+        
+        $turnoData = $this->construirDatosTurno($datosValidados, $idTurno, $precio, $token, $plazas, $numeroTurno);
         
         // Enviar notificaciones
         $this->notificacionService->enviarNotificacionLavadero($turnoData);
@@ -45,7 +49,7 @@ class TurnoService {
         return $turnoData;
     }
     
-    private function construirDatosTurno(array $datos, int $idTurno, float $precio, string $token, int $plazas = 4): array {
+    private function construirDatosTurno(array $datos, int $idTurno, float $precio, string $token, int $plazas = 4, int $numeroTurno = 1): array {
         $baseUrl = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
         
         $turnoData = [
@@ -59,14 +63,14 @@ class TurnoService {
             'patente' => $datos['patente'],
             'fecha' => $datos['fecha'],
             'fecha_formateada' => date('d/m/Y', strtotime($datos['fecha'])),
-            'hora' => $datos['hora'],
+            'hora' => 'A confirmar',
+            'numero_turno' => $numeroTurno,
             'servicio' => $datos['servicio'],
             'servicio_nombre' => $this->obtenerNombreServicio($datos['servicio']),
             'precio_final' => $precio,
             'url_confirmacion' => $baseUrl . "/confirmar_turno.php?token=" . $token
         ];
         
-        // Agregar información de plazas si es limpieza de tapizados
         if ($datos['servicio'] === 'limpieza-tapizados') {
             $turnoData['plazas'] = $plazas;
             $turnoData['servicio_nombre'] .= " ({$plazas} plazas)";
