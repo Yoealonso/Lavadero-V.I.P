@@ -129,6 +129,7 @@ nav a:hover {
   background: linear-gradient(90deg, #9b0b0b 0%, #ffffff 50%, #9b0b0b 100%);
   background-size: 200%;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -404,29 +405,30 @@ footer {
 
 
 /** === Responsive === **/
-@media (max-width: 700px) {
-  .servicios-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .servicio {
-    width: 90%;
-  }
-
-  .banner {
-    height: 220px;
-  }
-
-  header {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  @media (max-width: 768px) {
+/* === Galería: ajuste responsive === */
+@media (max-width: 768px) {
   .galeria-scroll img {
     width: 220px;
     height: 140px;
+  }
+
+  .galeria-container {
+    padding: 0 10px;
+  }
+
+  .arrow.left {
+    left: 0;
+  }
+
+  .arrow.right {
+    right: 0;
+  }
+}
+
+@media (max-width: 375px) {
+  .galeria-scroll img {
+    width: 180px;
+    height: 120px;
   }
 }
 }
