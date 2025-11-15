@@ -3,7 +3,7 @@ class Database {
     private static $instance = null;
     private $link;
     
-    private $host = "localhost";
+    private $host = "localhost:3307";
     private $user = "root";
     private $password = "";
     private $database = "lavadero";

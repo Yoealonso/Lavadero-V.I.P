@@ -7,5 +7,6 @@ interface TurnoRepositoryInterface {
     public function verificarDisponibilidad(string $fecha): bool;
     public function confirmarTurno(string $token): bool;
     public function obtenerTurnoPorToken(string $token): array;
+    public function asignarNumeroTurno(string $fecha): int;
 }
 ?>
