@@ -314,7 +314,6 @@
     </div>
 
     <script>
-        // Forzar fecha mínima (mañana)
         (function(){
             const d = new Date();
             d.setDate(d.getDate() + 1);
