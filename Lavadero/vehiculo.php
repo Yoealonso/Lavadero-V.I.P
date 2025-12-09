@@ -1,34 +1,21 @@
 <?php
 session_start();
 
-$servicios_validos = [
-    'pre-venta-basic',
-    'pre-venta-premium',
-    'lavado-premium-auto',
-    'lavado-premium-camioneta',
-    'lavado-premium-suv',
-    'lavado-vip-extreme',
-    'tratamiento-ceramico',
-    'abrillantado-carroceria',
-    'limpieza-motor',
-    'pulido-opticas',
-    'pintura-llantas',
-    'limpieza-tapizados',
-    'alfombras-ziel',
-    'colchones',
-    'sillones',
-    'lampara-led-ir',
-    'lampara-led-r8'
+// Mapeo de servicios
+$servicios_mapeo = [
+    'basico' => 'pre-venta-basic',
+    'premium' => 'pre-venta-premium', 
+    'full' => 'lavado-premium-auto',
+    'tapizados' => 'limpieza-tapizados'
 ];
 
-$servicio = $_GET['servicio'] ?? 'pre-venta-basic';
+$servicio_solicitado = $_GET['servicio'] ?? 'pre-venta-basic';
+$servicio_real = $servicios_mapeo[$servicio_solicitado] ?? $servicio_solicitado;
 
-if (!in_array($servicio, $servicios_validos)) {
-    $servicio = 'pre-venta-basic';
-}
+// Guardar en sesión para usar en reserva.php
+$_SESSION['servicio_redirigido'] = $servicio_real;
 
-$_SESSION['servicio_redirigido'] = $servicio;
-
-header("Location: reserva.php?servicio=" . urlencode($servicio));
+// Redirigir a la página de reserva
+header("Location: reserva.php?servicio=" . urlencode($servicio_real));
 exit;
 ?>

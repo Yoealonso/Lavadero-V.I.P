@@ -229,12 +229,17 @@
                         'lavado-premium-camioneta' => 'Lavado Premium Camioneta',
                         'lavado-premium-suv' => 'Lavado Premium SUV',
                         'lavado-vip-extreme' => 'Lavado VIP Extreme',
-                        'tratamiento-ceramico' => 'Tratamiento Ceramico',
-                        'abrillantado-carroceria' => 'Abrillantado de Carroceria',
-                        'limpieza-motor' => 'Limpieza de Motor',
-                        'pulido-opticas' => 'Pulido de Opticas',
+                        'tratamiento-ceramico' => 'Tratamiento Cerámico',
+                        'abrillantado-carroceria' => 'Abrillantado de Carrocería',
+                        'limpieza-motor' => 'Limpieza y Acondicionado de Motor',
+                        'pulido-opticas' => 'Pulido y Sellado de Ópticas',
                         'pintura-llantas' => 'Pintura de Llantas',
-                        'limpieza-tapizados' => 'Limpieza de Tapizados'
+                        'limpieza-tapizados' => 'Limpieza de Tapizados',
+                        'alfombras-ziel' => 'Alfombras Termoformadas ZIEL',
+                        'colchones' => 'Limpieza de Colchones',
+                        'sillones' => 'Limpieza de Sillones',
+                        'lampara-led-ir' => 'Lámparas LED IR 100',
+                        'lampara-led-r8' => 'Lámparas LED R8'
                     ];
                     echo htmlspecialchars($servicios_nombres[$_GET['servicio'] ?? 'pre-venta-basic'] ?? 'Servicio');
                     ?>

@@ -13,22 +13,36 @@ include_once './Services/Implementations/WhatsAppNotificacionService.php';
 include_once './Services/Implementations/DBPrecioService.php';
 include_once './Services/TurnoService.php';
 
-// Configuración
+
 $whatsappConfig = [
     'api_url' => 'https://api.whatsapp.com/send',
     'token' => 'simulado',
     'numero_lavadero' => '2291416897'
 ];
 
-// Mapeo completo de servicios del frontend a BD
+
 $servicios_mapeo = [
-    'basico' => 'pre-venta-basic',
-    'premium' => 'pre-venta-premium', 
-    'full' => 'lavado-premium-auto',
-    'tapizados' => 'limpieza-tapizados'
+    'pre-venta-basic' => 'pre-venta-basic',
+    'pre-venta-premium' => 'pre-venta-premium',
+    'lavado-premium-auto' => 'lavado-premium-auto',
+    'lavado-premium-camioneta' => 'lavado-premium-camioneta',
+    'lavado-premium-suv' => 'lavado-premium-suv',
+    'lavado-vip-extreme' => 'lavado-vip-extreme',
+    'tratamiento-ceramico' => 'tratamiento-ceramico',
+    'abrillantado-carroceria' => 'abrillantado-carroceria',
+    'limpieza-motor' => 'limpieza-motor',
+    'pulido-opticas' => 'pulido-opticas',
+    'pintura-llantas' => 'pintura-llantas',
+    'limpieza-tapizados' => 'limpieza-tapizados',
+    
+    // Otros servicios
+    'alfombras-ziel' => 'alfombras-ziel',
+    'colchones' => 'colchones',
+    'sillones' => 'sillones',
+    'lampara-led-ir' => 'lampara-led-ir',
+    'lampara-led-r8' => 'lampara-led-r8'
 ];
 
-// Array de servicios disponibles para validación (actualizado)
 $servicios_disponibles = [
     'pre-venta-basic' => 'Pre Venta Basic',
     'pre-venta-premium' => 'Pre Venta Premium',
@@ -43,8 +57,7 @@ $servicios_disponibles = [
     'pintura-llantas' => 'Pintura de Llantas',
     'limpieza-tapizados' => 'Limpieza de Tapizados'
 ];
-
-// Obtener servicio real
+// Determinar servicio real
 if (isset($_SESSION['servicio_redirigido'])) {
     $servicio_real = $_SESSION['servicio_redirigido'];
     unset($_SESSION['servicio_redirigido']);

@@ -28,13 +28,13 @@ class WhatsAppNotificacionService implements NotificacionServiceInterface {
     private function construirMensajeConfirmacionCliente(array $cliente, array $turno): string {
         return "¡Hola {$cliente['nombre']}! 📅\n\n" .
             "Tu turno en VIP CAR WASH está pendiente de confirmación:\n" .
-            "📋 Servicio: {$turno['servicio']}\n" .
-            "🚗 Vehículo: {$turno['vehiculo']}\n" .
-            "📅 Fecha: {$turno['fecha']}\n" .
-            "⏰ Hora: {$turno['hora']}\n" .
-            "💲 Precio: $" . number_format($turno['precio_final'], 0, ',', '.') . "\n\n" .
+            "📋 Servicio: " . ($turno['servicio_nombre'] ?? $turno['servicio'] ?? 'Servicio') . "\n" . 
+            "🚗 Vehículo: " . ($turno['vehiculo'] ?? 'Vehículo') . "\n" .
+            "📅 Fecha: " . ($turno['fecha_formateada'] ?? $turno['fecha'] ?? 'Fecha') . "\n" . 
+            "⏰ Hora: " . ($turno['hora'] ?? 'Hora') . "\n" .
+            "💲 Precio: $" . number_format($turno['precio_final'] ?? 0, 0, ',', '.') . "\n\n" .
             "Para CONFIRMAR tu turno, haz clic aquí:\n" .
-            "{$turno['url_confirmacion']}\n\n" .
+            "" . ($turno['url_confirmacion'] ?? 'URL no disponible') . "\n\n" . 
             "Si no puedes asistir, por favor ignora este mensaje.\n" .
             "¡Gracias! 🚗💨";
     }

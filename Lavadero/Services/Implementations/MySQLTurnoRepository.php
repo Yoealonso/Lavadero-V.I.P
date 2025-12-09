@@ -79,6 +79,8 @@ class MySQLTurnoRepository implements TurnoRepositoryInterface {
     public function obtenerServicioId(string $servicio): int {
         $servicioBD = $this->mapearServicioABD($servicio);
         
+        echo "<!-- DEBUG: Buscando servicio: '$servicio' -> '$servicioBD' -->";
+        
         $stmt = $this->db->prepare("SELECT idservicio FROM servicio WHERE nombre = ?");
         $stmt->bind_param("s", $servicioBD);
         $stmt->execute();
@@ -86,7 +88,27 @@ class MySQLTurnoRepository implements TurnoRepositoryInterface {
         $row = $result->fetch_assoc();
         $stmt->close();
         
-        return $row ? intval($row['idservicio']) : 1;
+        if (!$row) {
+            // Si no encuentra el servicio, buscar por LIKE o lanzar excepción
+            error_log("❌ SERVICIO NO ENCONTRADO: " . $servicioBD);
+            
+            // Buscar alternativas
+            $stmt2 = $this->db->prepare("SELECT idservicio FROM servicio WHERE nombre LIKE ?");
+            $likeServicio = "%" . $servicioBD . "%";
+            $stmt2->bind_param("s", $likeServicio);
+            $stmt2->execute();
+            $result2 = $stmt2->get_result();
+            $row2 = $result2->fetch_assoc();
+            $stmt2->close();
+            
+            if ($row2) {
+                return intval($row2['idservicio']);
+            }
+            
+            throw new Exception("Servicio no encontrado: " . $servicio);
+        }
+        
+        return intval($row['idservicio']);
     }
     
     public function verificarDisponibilidad(string $fecha): bool {
@@ -142,14 +164,26 @@ class MySQLTurnoRepository implements TurnoRepositoryInterface {
     }
     
     private function mapearServicioABD(string $servicioFrontend): string {
-        $mapeo = [
-            'basico' => 'pre-venta-basic',
-            'premium' => 'pre-venta-premium', 
-            'full' => 'lavado-premium-auto',
-            'tapizados' => 'limpieza-tapizados'
-        ];
-        
-        return $mapeo[$servicioFrontend] ?? $servicioFrontend;
+    $serviciosBD = [
+        'pre-venta-basic', 'pre-venta-premium', 'lavado-premium-auto',
+        'lavado-premium-camioneta', 'lavado-premium-suv', 'lavado-vip-extreme',
+        'tratamiento-ceramico', 'abrillantado-carroceria', 'limpieza-motor',
+        'pulido-opticas', 'pintura-llantas', 'limpieza-tapizados',
+        'alfombras-ziel', 'colchones', 'sillones', 'lampara-led-ir', 'lampara-led-r8'
+    ];
+    
+    if (in_array($servicioFrontend, $serviciosBD)) {
+        return $servicioFrontend;
     }
+    
+    $mapeoAntiguo = [
+        'basico' => 'pre-venta-basic',
+        'premium' => 'pre-venta-premium', 
+        'full' => 'lavado-premium-auto',
+        'tapizados' => 'limpieza-tapizados'
+    ];
+    
+    return $mapeoAntiguo[$servicioFrontend] ?? 'pre-venta-basic';
+}
 }
 ?>
